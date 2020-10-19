@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "147304075685",
+    "firebase_url": "https://chinchin-prueba.firebaseio.com",
+    "project_id": "chinchin-prueba",
+    "storage_bucket": "chinchin-prueba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147304075685:android:21098f14e0b9f71ae3184c",
+        "android_client_info": {
+          "package_name": "android.example.chinchin_prueba"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147304075685-hc7tqqdrobrl5c9sngfepvfg3j5buta5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ207GpW1ZDQiCSMm-KyFMdbE0CrA2dtE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147304075685-hc7tqqdrobrl5c9sngfepvfg3j5buta5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

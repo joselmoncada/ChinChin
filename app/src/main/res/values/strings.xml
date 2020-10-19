@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ChinChin_prueba</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="login_label">Ingresa tus datos para iniciar sesión</string>
+    <string name="register_label">Llena los campos para crear tu cuenta</string>
+    <string name="registro_de_usuario">REGISTRO DE USUARIO</string>
+    <string name="iniciar_sesi_n">Iniciar Sesión</string>
+    <string name="cerrar_sesi_n">Cerrar Sesión</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
