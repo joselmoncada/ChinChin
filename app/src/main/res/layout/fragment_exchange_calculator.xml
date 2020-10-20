@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.exchangeCalculator.ExchangeCalculator">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    </ScrollView>
 
     <TextView
         android:id="@+id/title"
@@ -24,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="20dp"
         android:textColor="@color/black"
-        android:text="CALCULADORA DE CAMBIO"
+        android:text="@string/calculadora_de_cambio"
         />
     <TextView
         android:id="@+id/label"
@@ -91,7 +85,7 @@
             android:id="@+id/amountLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingresa el monto a calcular"
+            android:hint="@string/ingresa_el_monto_a_calcular"
             app:errorTextColor="@color/error"
             app:errorIconTint="@color/error"
             >
@@ -105,7 +99,8 @@
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+
+   <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/exchangeBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -318,6 +313,7 @@
                 android:textSize="@dimen/regular_text" />
         </LinearLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/generateQRButton"
         android:layout_width="match_parent"
@@ -328,5 +324,6 @@
         android:text="Generar código QR"
         android:textSize="@dimen/regular_text"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

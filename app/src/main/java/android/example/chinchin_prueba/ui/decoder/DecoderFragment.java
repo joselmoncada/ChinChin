@@ -15,23 +15,23 @@ import androidx.lifecycle.ViewModelProvider;
 import android.example.chinchin_prueba.R;
 
 public class DecoderFragment extends Fragment{
-
+    View root;
     private DashboardViewModel dashboardViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+       root = inflater.inflate(R.layout.fragment_decoder, container, false);
+
+     //todo setear vistas
         return root;
     }
+
+    private void readCode(){
+        // todo leer codigo QR
+    }
+
 
     public void getExchangeRates(){
 

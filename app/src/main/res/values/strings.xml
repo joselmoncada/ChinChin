@@ -10,4 +10,8 @@
     <string name="cerrar_sesi_n">Cerrar Sesión</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ingresa_tu_c_digo_qr">Ingresa tu código QR</string>
+    <string name="calculadora_de_cambio">CALCULADORA DE CAMBIO</string>
+    <string name="analisis_de_cambio">ANÁLISIS DE CAMBIO</string>
+    <string name="ingresa_el_monto_a_calcular">Ingresa el monto a calcular</string>
 </resources>

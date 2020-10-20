@@ -1,10 +1,13 @@
 package android.example.chinchin_prueba.ui.exchangeCalculator;
 
+import android.content.Intent;
 import android.example.chinchin_prueba.MainActivity;
 import android.example.chinchin_prueba.models.RateResponse;
 import android.example.chinchin_prueba.retrofit.AppInterface;
 import android.example.chinchin_prueba.retrofit.RetroClient;
 import android.example.chinchin_prueba.ui.appUtils.BaseFragment;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -17,17 +20,23 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.example.chinchin_prueba.R;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.GsonBuilder;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +50,7 @@ public class ExchangeCalculator extends BaseFragment {
     private ExchangeCalculatorModel exchangeCalculatorModel;
     private TextInputLayout amountLayout;
     private TextInputEditText amountEditText;
+    private Bitmap bitmap;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,7 +120,17 @@ public class ExchangeCalculator extends BaseFragment {
 
     private void setViewElements() {
         final Button generateQRbutton = root.findViewById(R.id.generateQRButton);
+        generateQRbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                generateQRcode();
+                Bundle args = new Bundle();
+                args.putParcelable("qrCode", bitmap);
+                Navigation.findNavController(v).navigate(R.id.showQR,args);
+            }
+        });
         ETHtv =  root.findViewById(R.id.ETHexchange);
+        USDtv = root.findViewById(R.id.USDexchange);
         BTCtv = root.findViewById(R.id.BTCexchange);
         EURtv = root.findViewById(R.id.EUROexchange);
         BStv = root.findViewById(R.id.BSexchange);
@@ -144,6 +164,27 @@ public class ExchangeCalculator extends BaseFragment {
         //todo dropdown de monedas
 
 
+
+    }
+
+    private void generateQRcode() {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            try {
+                HashMap<String,String> exchangeInfo = new HashMap<>();
+                exchangeInfo.put("key","myValue");
+                BitMatrix bitMatrix = qrCodeWriter.encode("prueba numero 1", BarcodeFormat.QR_CODE, 200, 200);
+                bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565);
+                for (int x = 0; x<200; x++){
+                    for (int y=0; y<200; y++){
+                        bitmap.setPixel(x,y,bitMatrix.get(x,y)? Color.BLACK : Color.WHITE);
+                    }
+                }
+                final ImageView image = root.findViewById(R.id.image);
+                image.setImageBitmap(bitmap);
+                exchangeCalculatorModel.setQrCode(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
     }
 }
