@@ -17,14 +17,13 @@ import android.example.chinchin_prueba.R;
 
 public class ProfileFragment extends Fragment {
 
-    private ProfileViewModel profileViewModel;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        profileViewModel =
-                new ViewModelProvider(this).get(ProfileViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
         final TextView name = root.findViewById(R.id.nameTextView);
         final TextView email = root.findViewById(R.id.emailTextView);

@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/black"
         android:text="@string/calculadora_de_cambio"
         />
@@ -50,14 +50,14 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/currencyDropdownLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="match_parent"
             app:endIconDrawable="@drawable/arrow_down"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
 
             <AutoCompleteTextView
                 android:id="@+id/currencyDropdown"
-                android:layout_width="75dp"
+                android:layout_width="112dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
                 android:drawableTint="@color/colorPrimary"
@@ -65,7 +65,7 @@
                 android:gravity="center"
                 android:inputType="none"
                 android:padding="20dp"
-                android:text="B"
+                android:text="USD"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
@@ -99,231 +99,320 @@
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="1000dp"
+    app:layout_constraintTop_toBottomOf="@+id/amountLinearLayout"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:layout_marginTop="16dp"
+    >
 
-   <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/exchangeBox"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/amountLinearLayout"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/light_box"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="20dp"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/exchangeTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Montos calculados"
-            android:textAlignment="center"
-            android:fontFamily="@font/roboto"
-            android:textColor="@color/colorHint"
-            android:textSize="@dimen/regular_text" />
-
-        <LinearLayout
-            android:id="@+id/ETHLayout"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/exchangeBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/light_box"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="20dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="16dp"
-
-            >
-            <TextView
-                android:id="@+id/ETH"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="@dimen/regular_text"
-                android:textColor="@color/colorHint"
-                android:fontFamily="@font/roboto_bold"
-                android:text="ETH"
-                />
-
-            <TextView
-                android:id="@+id/ETHexchange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:fontFamily="@font/roboto"
-                android:hint="ETH exchange"
-                android:textAlignment="center"
-                android:textColor="@color/colorHint"
-                android:textSize="@dimen/regular_text" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/BTCLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-
-            >
-            <TextView
-                android:id="@+id/BTC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="@dimen/regular_text"
-                android:textColor="@color/colorHint"
-                android:fontFamily="@font/roboto_bold"
-                android:text="BTC"
-                />
-
-            <TextView
-                android:id="@+id/BTCexchange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:fontFamily="@font/roboto"
-                android:hint="BTC exchange"
-                android:textAlignment="center"
-                android:textColor="@color/colorHint"
-                android:textSize="@dimen/regular_text" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/PTRLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-
             >
 
             <TextView
-                android:id="@+id/PTR"
+                android:id="@+id/exchangeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Montos calculados"
                 android:textAlignment="center"
-                android:textSize="@dimen/regular_text"
-                android:textColor="@color/colorHint"
-                android:fontFamily="@font/roboto_bold"
-                android:text="PTR"
-                />
-
-            <TextView
-                android:id="@+id/PTRexchange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
                 android:fontFamily="@font/roboto"
-                android:hint="PTR exchange"
-                android:textAlignment="center"
                 android:textColor="@color/colorHint"
                 android:textSize="@dimen/regular_text" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/BSLayout"
-            android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/ETHLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+
+                >
+                <TextView
+                    android:id="@+id/ETH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/regular_text"
+                    android:textColor="@color/colorHint"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="ETH: "
+                    />
+
+                <TextView
+                    android:id="@+id/ETH_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/regular_text"
+                    android:textColor="@color/colorHint"
+                    android:fontFamily="@font/roboto"
+                    android:text="rate"
+                    />
+
+                <TextView
+                    android:id="@+id/ETHexchange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/amount_space"
+                    android:fontFamily="@font/roboto"
+                    android:hint="ETH exchange"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorHint"
+                    android:textSize="@dimen/regular_text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/BTCLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+
+                >
+                <TextView
+                    android:id="@+id/BTC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/regular_text"
+                    android:textColor="@color/colorHint"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="BTC: "
+                    />
+                <TextView
+                    android:id="@+id/BTC_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/regular_text"
+                    android:textColor="@color/colorHint"
+                    android:fontFamily="@font/roboto"
+                    android:text="rate"
+                    />
+
+
+                <TextView
+                    android:id="@+id/BTCexchange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/amount_space"
+                    android:fontFamily="@font/roboto"
+                    android:hint="BTC exchange"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorHint"
+                    android:textSize="@dimen/regular_text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/PTRLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/PTR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/regular_text"
+                    android:textColor="@color/colorHint"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="PTR: "
+                    />
+                <TextView
+                    android:id="@+id/PTR_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/regular_text"
+                    android:textColor="@color/colorHint"
+                    android:fontFamily="@font/roboto"
+                    android:text="rate"
+                    />
+
+
+                <TextView
+                    android:id="@+id/PTRexchange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/amount_space"
+                    android:fontFamily="@font/roboto"
+                    android:hint="PTR exchange"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorHint"
+                    android:textSize="@dimen/regular_text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/BSLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+
+                >
+                <TextView
+                    android:id="@+id/BS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/regular_text"
+                    android:textColor="@color/colorHint"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="BS:    "
+                    />
+                <TextView
+                    android:id="@+id/BS_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/regular_text"
+                    android:textColor="@color/colorHint"
+                    android:fontFamily="@font/roboto"
+                    android:text="rate"
+                    />
+
+
+                <TextView
+                    android:id="@+id/BSexchange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/amount_space"
+                    android:fontFamily="@font/roboto"
+                    android:hint="BS exchange"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorHint"
+                    android:textSize="@dimen/regular_text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/EUROLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+
+                >
+                <TextView
+                    android:id="@+id/EUR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/regular_text"
+                    android:textColor="@color/colorHint"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="EUR: "
+                    />
+                <TextView
+                    android:id="@+id/EUR_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/regular_text"
+                    android:textColor="@color/colorHint"
+                    android:fontFamily="@font/roboto"
+                    android:text="rate"
+                    />
+
+                <TextView
+                    android:id="@+id/EUROexchange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/amount_space"
+                    android:fontFamily="@font/roboto"
+                    android:hint="EUR exchange"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorHint"
+                    android:textSize="@dimen/regular_text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/USDLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+
+                >
+                <TextView
+                    android:id="@+id/USD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/regular_text"
+                    android:textColor="@color/colorHint"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="USD: "
+                    />
+                <TextView
+                    android:id="@+id/USD_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/regular_text"
+                    android:textColor="@color/colorHint"
+                    android:fontFamily="@font/roboto"
+                    android:text="rate"
+                    />
+
+                <TextView
+                    android:id="@+id/USDexchange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/amount_space"
+                    android:fontFamily="@font/roboto"
+                    android:hint="USD exchange"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorHint"
+                    android:textSize="@dimen/regular_text" />
+            </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/generateQRButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/exchangeBox"
             android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="24sp"
+            android:text="Generar código QR"
+            android:textSize="@dimen/regular_text"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            >
-            <TextView
-                android:id="@+id/BS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="@dimen/regular_text"
-                android:textColor="@color/colorHint"
-                android:fontFamily="@font/roboto_bold"
-                android:text="BS"
-                />
 
-            <TextView
-                android:id="@+id/BSexchange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="120dp"
-                android:fontFamily="@font/roboto"
-                android:hint="BS exchange"
-                android:textAlignment="center"
-                android:textColor="@color/colorHint"
-                android:textSize="@dimen/regular_text" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/EUROLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-
-            >
-            <TextView
-                android:id="@+id/EURO"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="@dimen/regular_text"
-                android:textColor="@color/colorHint"
-                android:fontFamily="@font/roboto_bold"
-                android:text="EURO"
-                />
-
-            <TextView
-                android:id="@+id/EUROexchange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:fontFamily="@font/roboto"
-                android:hint="EURO exchange"
-                android:textAlignment="center"
-                android:textColor="@color/colorHint"
-                android:textSize="@dimen/regular_text" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/USDLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-
-            >
-            <TextView
-                android:id="@+id/USD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="@dimen/regular_text"
-                android:textColor="@color/colorHint"
-                android:fontFamily="@font/roboto_bold"
-                android:text="USD"
-                />
-
-            <TextView
-                android:id="@+id/USDexchange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:fontFamily="@font/roboto"
-                android:hint="USD exchange"
-                android:textAlignment="center"
-                android:textColor="@color/colorHint"
-                android:textSize="@dimen/regular_text" />
-        </LinearLayout>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/generateQRButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/exchangeBox"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="24sp"
-        android:text="Generar código QR"
-        android:textSize="@dimen/regular_text"
-        />
-
+</ScrollView>
+<ProgressBar
+    android:id="@+id/progressBar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    ></ProgressBar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

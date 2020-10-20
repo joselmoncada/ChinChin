@@ -63,4 +63,16 @@
         android:text="Cargar código QR"
         android:textSize="@dimen/regular_text"
         />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/decodeQRbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/chargeQRButton"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="24sp"
+        android:text="Decodificar código QR"
+        android:backgroundTint="@color/colorAccent"
+        android:textSize="@dimen/regular_text"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

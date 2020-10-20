@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.exchangeCalculator.QRdisplayFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:id="@+id/backButton"
         android:layout_width="wrap_content"

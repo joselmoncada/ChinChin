@@ -20,7 +20,11 @@
         android:id="@+id/navigation_decoder"
         android:name="android.example.chinchin_prueba.ui.decoder.DecoderFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_decoder" />
+        tools:layout="@layout/fragment_decoder" >
+        <action
+            android:id="@+id/showQRinfo"
+            app:destination="@id/resumeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -38,5 +42,17 @@
         <argument
             android:name="qrCode"
             app:argType="android.graphics.Bitmap" />
+    </fragment>
+    <fragment
+        android:id="@+id/resumeFragment"
+        android:name="android.example.chinchin_prueba.ui.decoder.ResumeFragment"
+        android:label="fragment_resume"
+        tools:layout="@layout/fragment_resume" >
+        <argument android:name="qrCode"
+            app:argType="android.graphics.Bitmap"
+            />
+        <action
+            android:id="@+id/recalculate"
+            app:destination="@id/navigation_exchange_calculator" />
     </fragment>
 </navigation>

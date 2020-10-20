@@ -16,18 +16,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.example.chinchin_prueba.R;
 
 public class DecoderFragment extends Fragment{
     View root;
     Bitmap bitmap;
-    private DashboardViewModel dashboardViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+
        root = inflater.inflate(R.layout.fragment_decoder, container, false);
 
      setViewElements();
@@ -45,16 +45,18 @@ public class DecoderFragment extends Fragment{
                 img.setImageBitmap(bitmap);
             }
         });
+
+        final Button decodeQR = root.findViewById(R.id.decodeQRbutton);
+        decodeQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                args.putParcelable("qrCode", bitmap);
+                Navigation.findNavController(v).navigate(R.id.showQRinfo,args);
+            }
+        });
     }
 
-    private void readCode(){
-        // todo leer codigo QR
-    }
 
 
-
-
-    public void getExchangeRates(){
-
-    }
 }

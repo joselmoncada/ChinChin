@@ -33,4 +33,16 @@ public class AppConstants {
     // public static final String EXCHANGE_API = "https://rest.coinapi.io/v1/exchangerate/";
     public static final String EXCHANGE_API = "https://api.exchangerate.host/";
     // public static final String EXCHANGE_API_TOKEN = "994DCD5F-FF06-46CB-88E3-47E7CE826C21";
+
+    public static List<String> getCurrencyTypes(){ //devuelve lista para los dropdowns de campo numero identificacion
+        List<String> currencyTypes = new ArrayList<String>();
+        currencyTypes.add("USD");
+        currencyTypes.add("BTC");
+        currencyTypes.add("BS");
+        currencyTypes.add("PTR");
+        currencyTypes.add("ETH");
+        currencyTypes.add("EUR");
+
+        return currencyTypes;
+    }
 }
