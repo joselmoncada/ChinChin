@@ -80,10 +80,12 @@ public class RegisterActivity extends BaseActivity {
                @Override
                public void onComplete(@NonNull Task<AuthResult> task) {
                    if(task.isSuccessful()){
-
+                       progressBar.setVisibility(View.GONE);
                        showToast("Usuario registrado exitosamente");
                        finish();
+
                    }else{
+                       progressBar.setVisibility(View.GONE);
                        showToast("Ha ocurrido un problema");
                        System.out.println("Error:" + task.getException().getMessage());
                    }
