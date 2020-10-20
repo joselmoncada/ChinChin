@@ -168,14 +168,14 @@ public class ExchangeCalculator extends BaseFragment {
                 currency = currencyTypeDropdown.getText().toString();
                 switch (currency){
                     case "USD":
-                        BS = new BigDecimal(0.0000022, mathContext);
-                        PTR = new BigDecimal(42.93, mathContext);
+                        BS = new BigDecimal(0.00001, mathContext);
+                        PTR = new BigDecimal(60, mathContext);
                         ETH = new BigDecimal(370.41, mathContext);
                         fetchExchangeRates(currency);
                         break;
                     case "EUR":
                         BS = new BigDecimal(0.0000019, mathContext);
-                        PTR = new BigDecimal(36.33, mathContext);
+                        PTR = new BigDecimal(50.84, mathContext);
                         ETH = new BigDecimal(312.11, mathContext);
                         fetchExchangeRates(currency);
                         break;
@@ -190,8 +190,8 @@ public class ExchangeCalculator extends BaseFragment {
                         PTR = new BigDecimal(1, mathContext);
                         ETH = new BigDecimal(0.12, mathContext);
                         BTC = new BigDecimal(0.0036, mathContext);
-                        USD = new BigDecimal(42.93, mathContext);
-                        EUR = new BigDecimal(36.33, mathContext);
+                        USD = new BigDecimal(0.016, mathContext);
+                        EUR = new BigDecimal(0.019, mathContext);
                         setRates();
                         break;
                     case "BS":
@@ -200,7 +200,7 @@ public class ExchangeCalculator extends BaseFragment {
                         PTR = new BigDecimal(19416294.54, mathContext);
                         ETH = new BigDecimal(167211699.30, mathContext);
                         BTC = new BigDecimal(5377540192.00, mathContext);
-                        USD = new BigDecimal(452278.00, mathContext);
+                        USD = new BigDecimal(100000, mathContext);
                         EUR = new BigDecimal(534300.88, mathContext);
                         setRates();
                         break;
