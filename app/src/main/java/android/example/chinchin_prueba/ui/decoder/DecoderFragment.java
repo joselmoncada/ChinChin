@@ -2,6 +2,7 @@ package android.example.chinchin_prueba.ui.decoder;
 
 import android.content.ContextWrapper;
 import android.example.chinchin_prueba.MainActivity;
+import android.example.chinchin_prueba.ui.appUtils.BaseFragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,7 +21,7 @@ import androidx.navigation.Navigation;
 
 import android.example.chinchin_prueba.R;
 
-public class DecoderFragment extends Fragment{
+public class DecoderFragment extends BaseFragment {
     View root;
     Bitmap bitmap;
 
@@ -42,7 +43,11 @@ public class DecoderFragment extends Fragment{
             public void onClick(View v) {
                 bitmap = ((MainActivity)getActivity()).getBitmap();
                 final ImageView img = root.findViewById(R.id.imageQR);
-                img.setImageBitmap(bitmap);
+                if(bitmap!=null) {
+                    img.setImageBitmap(bitmap);
+                }else{
+                    showToast("No existe el codigo Qr");
+                }
             }
         });
 
@@ -50,9 +55,11 @@ public class DecoderFragment extends Fragment{
         decodeQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle args = new Bundle();
-                args.putParcelable("qrCode", bitmap);
-                Navigation.findNavController(v).navigate(R.id.showQRinfo,args);
+                if(bitmap!=null){
+                    Bundle args = new Bundle();
+                    args.putParcelable("qrCode", bitmap);
+                    Navigation.findNavController(v).navigate(R.id.showQRinfo,args);
+                }
             }
         });
     }

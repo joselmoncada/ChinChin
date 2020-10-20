@@ -22,7 +22,7 @@ public class RetroClient {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.readTimeout(60 * 5, TimeUnit.SECONDS).connectTimeout(60 * 5, TimeUnit.SECONDS).build();
+        httpClient.readTimeout(60 * 7, TimeUnit.SECONDS).connectTimeout(60 * 7, TimeUnit.SECONDS).build();
         httpClient.addInterceptor(logging);
 
 

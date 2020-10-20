@@ -5,7 +5,7 @@ package android.example.chinchin_prueba.models;
 import java.io.Serializable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -20,7 +20,7 @@ public class Rates implements Serializable, Parcelable
     private Double eUR;
     @SerializedName("USD")
     @Expose
-    private Integer uSD;
+    private Double uSD;
     public final static Parcelable.Creator<Rates> CREATOR = new Creator<Rates>() {
 
 
@@ -42,7 +42,7 @@ public class Rates implements Serializable, Parcelable
     protected Rates(Parcel in) {
         this.bTC = ((Double) in.readValue((Double.class.getClassLoader())));
         this.eUR = ((Double) in.readValue((Double.class.getClassLoader())));
-        this.uSD = ((Integer) in.readValue((Integer.class.getClassLoader())));
+        this.uSD = ((Double) in.readValue((Integer.class.getClassLoader())));
     }
 
     /**
@@ -58,7 +58,7 @@ public class Rates implements Serializable, Parcelable
      * @param eUR
      * @param uSD
      */
-    public Rates(Double bTC, Double eUR, Integer uSD) {
+    public Rates(Double bTC, Double eUR, Double uSD) {
         super();
         this.bTC = bTC;
         this.eUR = eUR;
@@ -91,15 +91,15 @@ public class Rates implements Serializable, Parcelable
         return this;
     }
 
-    public Integer getUSD() {
+    public Double getUSD() {
         return uSD;
     }
 
-    public void setUSD(Integer uSD) {
+    public void setUSD(Double uSD) {
         this.uSD = uSD;
     }
 
-    public Rates withUSD(Integer uSD) {
+    public Rates withUSD(Double uSD) {
         this.uSD = uSD;
         return this;
     }

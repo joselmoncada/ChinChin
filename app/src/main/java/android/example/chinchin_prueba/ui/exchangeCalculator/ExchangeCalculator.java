@@ -34,7 +34,9 @@ import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSerializer;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
@@ -60,15 +62,16 @@ public class ExchangeCalculator extends BaseFragment {
     private Bitmap bitmap;
     private AutoCompleteTextView currencyTypeDropdown;
     private ProgressBar progressBar;
-    final Integer precision = 2;
+
+    final MathContext mathContext= new MathContext(2, RoundingMode.HALF_UP);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //siempre inicia en $$
-        BS = new BigDecimal(0.0000022,  new MathContext(precision, RoundingMode.HALF_UP));
-        PTR = new BigDecimal(42.93,  new MathContext(precision, RoundingMode.HALF_UP));
-        ETH = new BigDecimal(370.41,  new MathContext(precision, RoundingMode.HALF_UP));
+        BS = new BigDecimal(0.0000022,  mathContext);
+        PTR = new BigDecimal(42.93,  mathContext);
+        ETH = new BigDecimal(370.41,  mathContext);
 
     }
 
@@ -83,9 +86,9 @@ public class ExchangeCalculator extends BaseFragment {
                         RateResponse rateData = response.body();
                         System.out.println("RESPONSE: " + response.body().toString());
                         System.out.println("isSuccess: " + response.body().getSuccess());
-                        USD = new BigDecimal(rateData.getRates().getUSD(), new MathContext(precision, RoundingMode.HALF_UP));
-                        BTC = new BigDecimal(rateData.getRates().getBTC(), new MathContext(precision, RoundingMode.HALF_UP));
-                        EUR = new BigDecimal(response.body().getRates().getEUR(), new MathContext(precision, RoundingMode.HALF_UP));
+                        USD = new BigDecimal(rateData.getRates().getUSD(), mathContext);
+                        BTC = new BigDecimal(rateData.getRates().getBTC(), mathContext);
+                        EUR = new BigDecimal(response.body().getRates().getEUR(), mathContext);
                         setRates();
                     }else{
                         System.out.println("Error: " + response.errorBody());
@@ -98,6 +101,8 @@ public class ExchangeCalculator extends BaseFragment {
                 @Override
                 public void onFailure(Call<RateResponse> call, Throwable t) {
                         showToast("Error de conexion, intenta mas tarde");
+                        System.out.println("Error conexion: " + t.getMessage());
+                    progressBar.setVisibility(View.GONE);
                 }
             });
         }else {
@@ -119,12 +124,12 @@ public class ExchangeCalculator extends BaseFragment {
 
     private void calculateExchanges() {
         //calculo el cambio
-        USDexchange = amount.divide(USD,  new MathContext(precision, RoundingMode.HALF_UP)) + " USD";
-        ETHexchange = amount.divide(ETH, new MathContext(precision, RoundingMode.HALF_UP)) + " ETH";
-        EURexchange = amount.divide(EUR, new MathContext(precision, RoundingMode.HALF_UP)) + " EUR";
-        BSexchange  = amount.divide(BS, new MathContext(precision, RoundingMode.HALF_UP)) +" BS";
-        PTRexchange = amount.divide(PTR, new MathContext(precision, RoundingMode.HALF_UP)) + " PTR";
-        BTCexchange = amount.divide(BTC, new MathContext(precision, RoundingMode.HALF_UP)) +" BTC";
+        USDexchange = amount.divide(USD , mathContext ) + " USD";
+        ETHexchange = amount.divide(ETH, mathContext) + " ETH";
+        EURexchange = amount.divide(EUR, mathContext) + " EUR";
+        BSexchange  = amount.divide(BS, mathContext) +" BS";
+        PTRexchange = amount.divide(PTR, mathContext) + " PTR";
+        BTCexchange = amount.divide(BTC, mathContext) +" BTC";
         //seteo la informacion
         ETHtv.setText(ETHexchange);
         BTCtv.setText(BTCexchange);
@@ -156,62 +161,69 @@ public class ExchangeCalculator extends BaseFragment {
         currencyTypeDropdown = root.findViewById(R.id.currencyDropdown);
         currencyTypeDropdown.setAdapter(currencyAdapter);
         currencyTypeDropdown.setListSelection(0);
+        currencyTypeDropdown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                progressBar.setVisibility(View.VISIBLE);
+                currency = currencyTypeDropdown.getText().toString();
+                switch (currency){
+                    case "USD":
+                        BS = new BigDecimal(0.0000022, mathContext);
+                        PTR = new BigDecimal(42.93, mathContext);
+                        ETH = new BigDecimal(370.41, mathContext);
+                        fetchExchangeRates(currency);
+                        break;
+                    case "EUR":
+                        BS = new BigDecimal(0.0000019, mathContext);
+                        PTR = new BigDecimal(36.33, mathContext);
+                        ETH = new BigDecimal(312.11, mathContext);
+                        fetchExchangeRates(currency);
+                        break;
+                    case "BTC":
+                        BS = new BigDecimal(1.9e-10, mathContext);
+                        PTR = new BigDecimal(0.0036, mathContext);
+                        ETH = new BigDecimal(0.031, mathContext);
+                        fetchExchangeRates(currency);
+                        break;
+                    case "PTR":
+                        BS = new BigDecimal(9.49e-5, mathContext);
+                        PTR = new BigDecimal(1, mathContext);
+                        ETH = new BigDecimal(0.12, mathContext);
+                        BTC = new BigDecimal(0.0036, mathContext);
+                        USD = new BigDecimal(42.93, mathContext);
+                        EUR = new BigDecimal(36.33, mathContext);
+                        setRates();
+                        break;
+                    case "BS":
+                        //precio de monedas en bs
+                        BS = new BigDecimal(1, mathContext);
+                        PTR = new BigDecimal(19416294.54, mathContext);
+                        ETH = new BigDecimal(167211699.30, mathContext);
+                        BTC = new BigDecimal(5377540192.00, mathContext);
+                        USD = new BigDecimal(452278.00, mathContext);
+                        EUR = new BigDecimal(534300.88, mathContext);
+                        setRates();
+                        break;
+                    case "ETH":
+                        BS = new BigDecimal(6.0e-9, mathContext);
+                        PTR = new BigDecimal(0.11, mathContext);
+                        ETH = new BigDecimal(1, mathContext);
+                        BTC = new BigDecimal(32.31, mathContext);
+                        USD = new BigDecimal(0.0027, mathContext);
+                        EUR = new BigDecimal(0.0032, mathContext);
+                        setRates();
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+        });
+
         currencyTypeDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                progressBar.setVisibility(View.VISIBLE);
-                currency = currencyTypeDropdown.getText().toString();
-               switch (currency){
-                   case "USD":
-                       BS = new BigDecimal(0.0000022);
-                       PTR = new BigDecimal(42.93);
-                       ETH = new BigDecimal(370.41);
-                       fetchExchangeRates(currency);
-                       break;
-                   case "EUR":
-                       BS = new BigDecimal(0.0000019);
-                       PTR = new BigDecimal(36.33);
-                       ETH = new BigDecimal(312.11);
-                       fetchExchangeRates(currency);
-                       break;
-                   case "BTC":
-                       BS = new BigDecimal(1.9e-10);
-                       PTR = new BigDecimal(0.0036);
-                       ETH = new BigDecimal(0.031);
-                       fetchExchangeRates(currency);
-                       break;
-                   case "PTR":
-                       BS = new BigDecimal(9.49e-5);
-                       PTR = new BigDecimal(1);
-                       ETH = new BigDecimal(0.12);
-                       BTC = new BigDecimal(0.0036);
-                       USD = new BigDecimal(42.93);
-                       EUR = new BigDecimal(36.33);
-                       setRates();
-                       break;
-                   case "BS":
-                       //precio de monedas en bs
-                       BS = new BigDecimal(1);
-                       PTR = new BigDecimal(19416294.54);
-                       ETH = new BigDecimal(167211699.30);
-                       BTC = new BigDecimal(5377540192.00);
-                       USD = new BigDecimal(452278.00);
-                       EUR = new BigDecimal(534300.88);
-                       setRates();
-                       break;
-                   case "ETH":
-                       BS = new BigDecimal(6.0e-9);
-                       PTR = new BigDecimal(0.11);
-                       ETH = new BigDecimal(1);
-                       BTC = new BigDecimal(32.31);
-                       USD = new BigDecimal(0.0027);
-                       EUR = new BigDecimal(0.0032);
-                       setRates();
-                       break;
-                   default:
-                       break;
 
-               }
             }
 
             @Override
@@ -225,14 +237,16 @@ public class ExchangeCalculator extends BaseFragment {
         generateQRbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Double.parseDouble(amountEditText.getText().toString())>0 && !TextUtils.isEmpty(amountEditText.getText().toString())){
-                    generateQRcode();
-                    Bundle args = new Bundle();
-                    args.putParcelable("qrCode", bitmap);
-                    Navigation.findNavController(v).navigate(R.id.showQR,args);
-                }else{
-                    amountLayout.setError("Ingrese un monto válido");
+                if(!TextUtils.isEmpty(amountEditText.getText().toString())){
+                    if(Double.parseDouble(amountEditText.getText().toString())>0 ){
+                        generateQRcode();
+                        Bundle args = new Bundle();
+                        args.putParcelable("qrCode", bitmap);
+                        Navigation.findNavController(v).navigate(R.id.showQR,args);
+                        return;
+                    }
                 }
+                amountLayout.setError("Ingrese un monto válido");
             }
         });
         amountEditText.addTextChangedListener(new TextWatcher() {
@@ -248,12 +262,16 @@ public class ExchangeCalculator extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(Double.parseDouble(s.toString())>0 && !TextUtils.isEmpty(s.toString())){
-                    amount = new BigDecimal(s.toString());
-                    calculateExchanges();
-                }else{
-                    amountLayout.setError("Ingrese un monto válido");
+
+                if( !TextUtils.isEmpty(s.toString())) {
+                    if (Double.parseDouble(s.toString()) > 0) {
+                        amount = new BigDecimal(s.toString());
+                        calculateExchanges();
+                        return;
+                    }
                 }
+
+                    amountLayout.setError("Ingrese un monto válido");
 
             }
         });
@@ -274,8 +292,16 @@ public class ExchangeCalculator extends BaseFragment {
                 info.setEURrate(EUR.toString());
                 info.setEURvalue(EURexchange);
                 info.setUSDrate(USD.toString());
+                info.setUSDvalue(USDexchange);
                 info.setEURvalue(USDexchange);
-                BitMatrix bitMatrix = qrCodeWriter.encode(info.toString(), BarcodeFormat.QR_CODE, 200, 200);
+                info.setPTRrate(PTR.toString());
+                info.setPTRvalue(PTRexchange);
+                info.setCurrency(currency);
+
+
+                String gsonObj = new Gson().toJson(info);
+                System.out.println("GSON: "+ gsonObj);
+                BitMatrix bitMatrix = qrCodeWriter.encode(gsonObj, BarcodeFormat.QR_CODE, 200, 200);
                 bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565);
                 for (int x = 0; x<200; x++){
                     for (int y=0; y<200; y++){

@@ -25,10 +25,10 @@ public class ProfileFragment extends Fragment {
 
 
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        final TextView name = root.findViewById(R.id.nameTextView);
+
         final TextView email = root.findViewById(R.id.emailTextView);
         final Button logoutButton = root.findViewById(R.id.logoutButton);
-        name.setText(SharedPreferenceUtils.getUserNames());
+
         email.setText(SharedPreferenceUtils.getEmail());
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override

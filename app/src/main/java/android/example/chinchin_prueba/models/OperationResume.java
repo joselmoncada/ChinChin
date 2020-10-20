@@ -111,4 +111,14 @@ public class OperationResume {
     private String ETHvalue;
     private String EURvalue;
     private String PTRvalue;
+
+    private String currency;
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 }

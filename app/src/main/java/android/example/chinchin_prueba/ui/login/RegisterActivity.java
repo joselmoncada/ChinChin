@@ -7,6 +7,7 @@ import android.example.chinchin_prueba.R;
 import android.example.chinchin_prueba.ui.appUtils.BaseActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -16,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends BaseActivity {
     private  String email, password, name;
@@ -52,7 +54,7 @@ public class RegisterActivity extends BaseActivity {
             return;
         }
         if(TextUtils.isEmpty(name)){
-            emailLayout.setError("Campo obligatorio");
+            nameLayout.setError("Campo obligatorio");
             return;
         }
 
@@ -78,6 +80,7 @@ public class RegisterActivity extends BaseActivity {
                @Override
                public void onComplete(@NonNull Task<AuthResult> task) {
                    if(task.isSuccessful()){
+
                        showToast("Usuario registrado exitosamente");
                        finish();
                    }else{
@@ -89,6 +92,8 @@ public class RegisterActivity extends BaseActivity {
        }
 
     }
+
+
 
     public void goBack(View view) {
         finish();
