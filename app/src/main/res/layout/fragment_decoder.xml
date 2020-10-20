@@ -39,79 +39,28 @@
         android:text="@string/ingresa_tu_c_digo_qr"
         />
 
-    <LinearLayout
-        android:id="@+id/amountLinearLayout"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_horizontal"
-        >
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/currencyDropdownLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:endIconDrawable="@drawable/arrow_down"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
-
-            <AutoCompleteTextView
-                android:id="@+id/currencyDropdown"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
-                android:drawableTint="@color/colorPrimary"
-                android:fontFamily="@font/roboto_bold"
-                android:gravity="center"
-                android:inputType="none"
-                android:padding="20dp"
-                android:text="B"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="@dimen/regular_text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="2dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/colorHint"
-            android:background="?android:attr/listDivider"
+        <ImageView
+            android:id="@+id/imageQR"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="?attr/actionBarDivider"
             />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/amountLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Ingresa el monto a calcular"
-            app:errorTextColor="@color/error"
-            app:errorIconTint="@color/error"
-            >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/amountEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberSigned"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/generateQRButton"
+        android:id="@+id/chargeQRButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/amountLinearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/imageQR"
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="24sp"
-        android:text="Generar código QR"
+        android:text="Cargar código QR"
         android:textSize="@dimen/regular_text"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

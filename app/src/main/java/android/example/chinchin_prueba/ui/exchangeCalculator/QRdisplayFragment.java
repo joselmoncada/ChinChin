@@ -1,7 +1,15 @@
 package android.example.chinchin_prueba.ui.exchangeCalculator;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.SharedPreferences;
+import android.example.chinchin_prueba.MainActivity;
 import android.example.chinchin_prueba.ui.appUtils.BaseFragment;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +27,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 
 public class QRdisplayFragment extends BaseFragment {
     View root;
-    ExchangeCalculatorModel exchangeCalculatorModel;
     ImageView qrImage;
-    private Bitmap bitmap;
+    Bitmap bitmap;
 
 
 
@@ -61,19 +73,14 @@ public class QRdisplayFragment extends BaseFragment {
         saveQrButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveQR();
-                showToast("Codigo guardado en galeria");
+                ((MainActivity)getActivity()).saveQR(bitmap);
+                showToast("archivo guardado");
+
             }
         });
     }
 
-   private void saveQR(){ //save the qr code in files
-        try {
-            FileOutputStream fileOutputStream = getContext().openFileOutput("qrCode", getContext().MODE_PRIVATE);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
-            fileOutputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
+
+
 }

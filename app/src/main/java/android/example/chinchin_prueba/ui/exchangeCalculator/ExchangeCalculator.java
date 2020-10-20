@@ -172,15 +172,14 @@ public class ExchangeCalculator extends BaseFragment {
             try {
                 HashMap<String,String> exchangeInfo = new HashMap<>();
                 exchangeInfo.put("key","myValue");
-                BitMatrix bitMatrix = qrCodeWriter.encode("prueba numero 1", BarcodeFormat.QR_CODE, 200, 200);
+                BitMatrix bitMatrix = qrCodeWriter.encode(exchangeInfo.toString(), BarcodeFormat.QR_CODE, 200, 200);
                 bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565);
                 for (int x = 0; x<200; x++){
                     for (int y=0; y<200; y++){
                         bitmap.setPixel(x,y,bitMatrix.get(x,y)? Color.BLACK : Color.WHITE);
                     }
                 }
-                final ImageView image = root.findViewById(R.id.image);
-                image.setImageBitmap(bitmap);
+
                 exchangeCalculatorModel.setQrCode(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();

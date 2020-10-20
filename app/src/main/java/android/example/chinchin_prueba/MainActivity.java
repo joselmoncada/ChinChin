@@ -1,10 +1,16 @@
 package android.example.chinchin_prueba;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.example.chinchin_prueba.ui.appUtils.BaseActivity;
 import android.example.chinchin_prueba.ui.appUtils.SharedPreferenceUtils;
 import android.example.chinchin_prueba.ui.login.LoginActivity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,8 +20,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 public class MainActivity extends BaseActivity {
 
+    Bitmap bitmap;
     public boolean checkInternetConnection(){
         return super.checkInternetConn(this);
     };
@@ -44,6 +56,42 @@ public class MainActivity extends BaseActivity {
         startActivity(loginIntent);
         finish();
 
+    }
+
+    public void saveQR(Bitmap bitmap){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("chinchin", Context.MODE_PRIVATE);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        File mypath = new File(directory, "qrCode.png");
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.close();
+        } catch (Exception e) {
+            Log.e("SAVE_IMAGE", e.getMessage(), e);
+        }
+    }
+
+    public void chargeCode(){
+
+        try {
+            ContextWrapper cw = new ContextWrapper(getApplicationContext());
+            File path1 = cw.getDir("chinchin", Context.MODE_PRIVATE);
+            File f = new File(path1, "qrCode.png");
+            bitmap = BitmapFactory.decodeStream(new FileInputStream(f));
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Bitmap getBitmap(){
+        chargeCode();
+        return this.bitmap;
     }
 
 }
