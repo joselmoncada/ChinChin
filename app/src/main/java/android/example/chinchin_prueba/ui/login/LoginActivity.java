@@ -89,12 +89,14 @@ public class LoginActivity extends BaseActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+                        progressBar.setVisibility(View.GONE);
                         showToast("Bienvenido");
                         SharedPreferenceUtils.setEmail(email);
                         SharedPreferenceUtils.setUserNames(task.getResult().getUser().getDisplayName());
                         SharedPreferenceUtils.setUserLoggedIn(true);
                         startDashboardActivity();
                     }else{
+                        progressBar.setVisibility(View.GONE);
                         System.out.println("Error: " + task.getException().getMessage());
                         showToast(AppConstants.NOT_REGISTERED_USER);
                     }
